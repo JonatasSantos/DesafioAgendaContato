@@ -1,0 +1,39 @@
+﻿@page
+@model DesafioAgendaContato.Pages.EditModel
+@{
+}
+
+<h4>Contato - Editar</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="contato.Id" />
+            <div class="form-group">
+                <label asp-for="contato.Nome" class="col-form-label"></label>
+                <input asp-for="contato.Nome" class="form-control mb-2" />
+                <span asp-validation-for="contato.Nome" class="text-danger"></span>
+                <label asp-for="contato.Telefone" class="col-form-label"></label>
+                <input asp-for="contato.Telefone" class="form-control mb-2" />
+                <span asp-validation-for="contato.Telefone" class="text-danger"></span>
+                <label asp-for="contato.Email" class="col-form-label"></label>
+                <input asp-for="contato.Email" class="form-control mb-2" />
+                <span asp-validation-for="contato.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Salvar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Voltar</a>
+</div>
+<h1>@Model.Mensagem</h1>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
