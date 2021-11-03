@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DesafioAgendaContato.Models;
+using DesafioAgendaContato.Domain;
 using DesafioAgendaContato.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -29,7 +29,7 @@ namespace DesafioAgendaContato.Pages
 
         public IActionResult OnGet(string id)
         {
-            contato = _rep.Selecionar(id);
+            //contato = _rep.Selecionar(id);
 
             return Page();
         }
@@ -41,17 +41,17 @@ namespace DesafioAgendaContato.Pages
                 return Page();
             }
 
-            try
-            {
-                _rep.Atualizar(contato);
+            //try
+            //{
+            //    _rep.Atualizar(contato);
 
-                Mensagem = "Sucesso";
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Create");
-                Mensagem = ex.Message;
-            }
+            //    Mensagem = "Sucesso";
+            //}
+            //catch (Exception ex)
+            //{
+            //    _logger.LogError(ex, "Create");
+            //    Mensagem = ex.Message;
+            //}
             return Page();
         }
     }

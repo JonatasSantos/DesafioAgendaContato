@@ -3,27 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
-using DesafioAgendaContato.Domain;
+using WebApi.Domain;
 using Microsoft.Extensions.Configuration;
 using MySqlConnector;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using Newtonsoft.Json;
 
-namespace DesafioAgendaContato.Repository
+namespace WebApi.Repository
 {
 
     public class ContatoRepository : IContatoRepository
     {
         private IConfiguration _configuracoes;
         private string _conexao { get { return _configuracoes.GetConnectionString("mysqldb"); } }
-        public HttpClient client = new HttpClient();
+
         public ContatoRepository(IConfiguration config)
         {
             _configuracoes = config;
-            client.BaseAddress = new Uri("https://localhost:44303/");
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
         }
 
         public Contato Selecionar(string id)
@@ -34,20 +28,12 @@ namespace DesafioAgendaContato.Repository
             }
         }
 
-        public async Task<List<Contato>> Listar()
+        public IEnumerable<Contato> Listar()
         {
-            HttpResponseMessage response = await client.GetAsync("api/contato/listar");
-            if (response.IsSuccessStatusCode)
+            using (var conexao = new MySqlConnection(_conexao))
             {
-                var dados = await response.Content.ReadAsStringAsync();
-                List<Contato> listinha = JsonConvert.DeserializeObject<List<Contato>>(dados);
-                return listinha;
+                return conexao.Query<Contato>("SELECT Id, Nome, Telefone, Email FROM Contato");
             }
-            else
-            {
-                return new List<Contato>();
-            }
-            
         }
 
         public void Persistir(Contato contato)

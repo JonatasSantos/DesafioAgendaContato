@@ -5,23 +5,24 @@
 <h4>Contato - Novo</h4>
 <hr />
 <div class="row">
+    <script src="js/create.js" asp-append-version="true"></script>
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-group">
                 <label asp-for="contato.Nome" class="col-form-label"></label>
-                <input asp-for="contato.Nome" class="form-control mb-2" />
+                <input id="nome" asp-for="contato.Nome" class="form-control mb-2" />
                 <span asp-validation-for="contato.Nome" class="text-danger"></span>
                 <label asp-for="contato.Telefone" class="col-form-label"></label>
-                <input asp-for="contato.Telefone" class="form-control mb-2" />
+                <input id="telefone" asp-for="contato.Telefone" class="form-control mb-2" />
                 <span asp-validation-for="contato.Telefone" class="text-danger"></span>
                 <label asp-for="contato.Email" class="col-form-label"></label>
-                <input asp-for="contato.Email" class="form-control mb-2" />
+                <input id="email" asp-for="contato.Email" class="form-control mb-2" />
                 <span asp-validation-for="contato.Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Salvar dados" class="btn btn-primary" />
+                <input id="salvar" type="submit" value="Salvar dados" class="btn btn-primary" onclick="salvarContato();"/>
             </div>
         </form>
     </div>

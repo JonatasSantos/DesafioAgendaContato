@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DesafioAgendaContato.Models
+namespace WebApi.Domain
 {
     public class Contato
     {
