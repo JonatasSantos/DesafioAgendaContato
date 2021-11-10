@@ -44,12 +44,26 @@
         <div id="editForm" style="display: none;">
             <h3>Editar Contato</h3>
             <form action="javascript:void(0);" onsubmit="atualizarContato()">
-                <input type="hidden" id="edit-id">
-                <input type="text" id="edit-nome">
-                <input type="text" id="edit-telefone">
-                <input type="text" id="edit-email">
-                <input type="submit" value="Salvar dados">
-                <a onclick="closeInput()" aria-label="Fechar" style="cursor: pointer;">&#10006;</a>
+                <div class="form-group">
+                    <input type="hidden" id="edit-id">
+                    
+                    <div>
+                        <label for="edit-nome">Nome: </label>
+                        <input type="text" id="edit-nome" required><br />
+                    </div>
+                    <div style="margin-left: -15px;">
+                        <label for="edit-telefone">Telefone: </label>
+                        <input type="text" id="edit-telefone" required><br />
+                    </div>
+                    <div>
+                        <label for="edit-email">E-mail: </label>
+                        <input type="text" id="edit-email" required><br />
+                    </div>
+                    
+                    <input type="submit" value="Salvar dados">
+                    <a onclick="closeInput()" aria-label="Fechar" style="cursor: pointer;">&#10006;</a>
+                </div>
+                
             </form>
         </div>
     </div>

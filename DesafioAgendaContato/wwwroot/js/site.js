@@ -113,7 +113,7 @@ function atualizarContato() {
     var result = Put("https://localhost:44303/api/contato/atualizar", JSON.stringify(contato));
     
     closeInput();
-
+    exibirContatos();
     return false;
 }
 
