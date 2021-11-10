@@ -5,11 +5,10 @@
 
 //$("#cadastrar").on("click", validarCampos);
 const api = "https://localhost:44303/api/contato/atualizar/";
-var acao = "atualizar/";
 
 function Put(yourUrl, dados) {
     var Httpreq = new XMLHttpRequest(); // a new request
-    Httpreq.open("PUT", yourUrl, false);
+    Httpreq.open("POST", yourUrl, false);
     Httpreq.setRequestHeader("Content-Type", "application/json");
     Httpreq.send(dados);
     return Httpreq.responseText;
@@ -28,7 +27,16 @@ function atualizarContato() {
         'Telefone': document.getElementById("telefone").value,
         'Email': document.getElementById("email").value
     };
-    //alert(contato.nome);
-    var result = Put(api + contatoID, contato);
-    alert(result);
+    fetch(api, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(contato)
+    })
+        .then(response => console.log(response.json()))
+        .catch(error => alert(error))
+    //'Accept': 'application / json',
+    //var result = Put(api + contato.Id, JSON.stringify(contato));
+    //alert(result);
 }

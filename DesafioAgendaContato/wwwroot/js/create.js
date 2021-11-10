@@ -8,7 +8,7 @@ const api = "https://localhost:44303/api/contato/persistir";
 
 function Put(yourUrl, dados) {
     var Httpreq = new XMLHttpRequest(); // a new request
-    Httpreq.open("PUT", yourUrl, false);
+    Httpreq.open("POST", yourUrl, false);
     Httpreq.setRequestHeader("Content-Type", "application/json");
     Httpreq.send(dados);
     return Httpreq.responseText;
@@ -25,6 +25,5 @@ function salvarContato() {
         'Email': document.getElementById("email").value
     };
     //alert(contato.nome);
-    var result = Put(api, contato);
-    alert(result);
+    var result = Put(api, JSON.stringify(contato));
 }

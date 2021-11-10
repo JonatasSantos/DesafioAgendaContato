@@ -14,24 +14,25 @@ function Get(yourUrl) {
     Httpreq.send(null);
     return Httpreq.responseText;
 }
+
+function Put(yourUrl, dados) {
+    var Httpreq = new XMLHttpRequest(); // a new request
+    Httpreq.open("POST", yourUrl, false);
+    Httpreq.setRequestHeader("Content-Type", "application/json");
+    Httpreq.send(dados);
+    return Httpreq.responseText;
+}
+
 var acao = Get("https://localhost:44303/api/contato/listar");
 var todosContatos = JSON.parse(acao);
-
+var contatos = [];
 window.onload = function () {
 
     if (document.URL == "https://localhost:44381/") {
-        todosContatos.forEach((item) => {
-            document.getElementById("id").innerHTML = item.id;
-            document.getElementById("nome").innerHTML = item.nome;
-            document.getElementById("telefone").innerHTML = item.telefone;
-            document.getElementById("email").innerHTML = item.email;
-            document.getElementById("editar").value = item.id;
-        })
-
-        var btnEditar = document.getElementById("editar");
-        btnEditar.setAttribute("href", "Edit?id=" + btnEditar.value);
+        exibirContatos();
     } else if (document.URL.includes("Edit")) {
         var contatoID = document.URL.substring(document.URL.indexOf("=") + 1, document.URL.length);
+        console.log("ok");
         acao = Get("https://localhost:44303/api/contato/selecionar/" + contatoID);
         let data = JSON.parse(acao);
         console.log(data);
@@ -50,4 +51,75 @@ window.onload = function () {
     
 }
 
+function exibirContatos() {
+    var tBody = document.getElementById('contatos');
+    tBody.innerHTML = '';
 
+    var btn = document.createElement('button');
+
+    todosContatos.forEach((item) => {
+        var tr = tBody.insertRow();
+
+        var tdID = tr.insertCell(0);
+        tdID.innerHTML = item.id;
+
+        var tdNome = tr.insertCell(1);
+        tdNome.innerText = item.nome;
+
+        var tdTelefone = tr.insertCell(2);
+        tdTelefone.innerText = item.telefone;
+
+        var tdEmail = tr.insertCell(3);
+        tdEmail.innerText = item.email;
+        var id = item.id.toString();
+        var btnEditar = btn.cloneNode(false);
+        btnEditar.innerText = 'Editar';
+        btnEditar.setAttribute('onclick', 'editar("' + item.id + '");');
+        var btnDeletar = btn.cloneNode(false);
+        btnDeletar.innerText = 'Deletar';
+        btnDeletar.setAttribute('onclick', `deleteItem(${item.id});`);
+
+        var tdEditar = tr.insertCell(4);
+        tdEditar.appendChild(btnEditar);
+
+        var tdDeletar = tr.insertCell(5);
+        tdDeletar.appendChild(btnDeletar);
+    })
+
+    
+}
+
+function editar(id) {
+    
+    var item = contatos.find(item => item.id === id);
+
+    document.getElementById('edit-id').value = item.id;
+    document.getElementById('edit-nome').value = item.nome;
+    document.getElementById('edit-telefone').value = item.telefone;
+    document.getElementById('edit-email').value = item.email;
+    document.getElementById('editForm').style.display = 'block';
+
+}
+
+function atualizarContato() {
+    var id = document.getElementById('edit-id').value;
+    var contato = {
+        Id: id,
+        Nome: document.getElementById('edit-nome').value,
+        Telefone: document.getElementById('edit-telefone').value,
+        Email: document.getElementById('edit-email').value
+    };
+
+    var result = Put("https://localhost:44303/api/contato/atualizar", JSON.stringify(contato));
+    
+    closeInput();
+
+    return false;
+}
+
+function closeInput() {
+    document.getElementById('editForm').style.display = 'none';
+}
+
+
+contatos = todosContatos;

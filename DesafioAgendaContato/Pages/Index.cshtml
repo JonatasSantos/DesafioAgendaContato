@@ -17,16 +17,16 @@
                     <th scope="col">Nome</th>
                     <th scope="col">Telefone</th>
                     <th scope="col">E-mail</th>
-                    <th>Opções</th>
+                    <th colspan="2">Opções</th>
                 </tr>
             </thead>
             @*if (Model != null && <!--Model.Contatos.Any())
             {*@
 
-            <tbody>
+            <tbody id="contatos">
                 @*foreach (var item in Model.Contatos)
                 {*@
-                <tr>
+                @*@<tr>
                     <th id="id" scope="row"></th>
                     <td id="nome"></td>
                     <td id="telefone"></td>
@@ -36,10 +36,21 @@
                         <a id="editar" asp-page="Edit" asp-route-id="enviarID();" class="btn btn-success btn-sm text-white" onclick="enviarID();">Editar</a>
                     </td>
 
-                </tr>
+                </tr>*@
                 @*}*@
             </tbody>
             @*}*@
         </table>
+        <div id="editForm" style="display: none;">
+            <h3>Editar Contato</h3>
+            <form action="javascript:void(0);" onsubmit="atualizarContato()">
+                <input type="hidden" id="edit-id">
+                <input type="text" id="edit-nome">
+                <input type="text" id="edit-telefone">
+                <input type="text" id="edit-email">
+                <input type="submit" value="Salvar dados">
+                <a onclick="closeInput()" aria-label="Fechar" style="cursor: pointer;">&#10006;</a>
+            </form>
+        </div>
     </div>
 </div>
