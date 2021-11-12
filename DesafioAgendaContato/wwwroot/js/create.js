@@ -6,7 +6,7 @@
 //$("#cadastrar").on("click", validarCampos);
 const api = "https://localhost:44303/api/contato/persistir";
 
-function Put(yourUrl, dados) {
+function Post(yourUrl, dados) {
     var Httpreq = new XMLHttpRequest(); // a new request
     Httpreq.open("POST", yourUrl, false);
     Httpreq.setRequestHeader("Content-Type", "application/json");
@@ -25,5 +25,5 @@ function salvarContato() {
         'Email': document.getElementById("email").value
     };
     //alert(contato.nome);
-    var result = Put(api, JSON.stringify(contato));
+    var result = Post(api, JSON.stringify(contato));
 }

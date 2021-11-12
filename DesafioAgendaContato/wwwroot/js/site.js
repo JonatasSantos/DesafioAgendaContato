@@ -17,7 +17,7 @@ function Get(yourUrl) {
 
 function Put(yourUrl, dados) {
     var Httpreq = new XMLHttpRequest(); // a new request
-    Httpreq.open("POST", yourUrl, false);
+    Httpreq.open("PUT", yourUrl, false);
     Httpreq.setRequestHeader("Content-Type", "application/json");
     Httpreq.send(dados);
     return Httpreq.responseText;
